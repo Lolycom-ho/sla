@@ -441,11 +441,67 @@ local Dropdown = Tab1:Dropdown({
         end
     end
 })
+
+local Paragraph = Tab2:Paragraph({
+    Title = "precisa da gamepass",
+    Desc = "gamepass música",
+})
+
+local Paragraph = Tab2:Paragraph({
+    Title = "so funciona em veículos do tip over board",
+    Desc = "",
+})
+
 local Button = Tab2:Button({
-    Title = "Button",
-    Desc = "Button Desc",
+    Title = "STOP",
+    Desc = "stop music",
     Callback = function()
-        print("Clicked!")
+        local args = {
+    [1] = "PickingScooterMusicText",
+    [2] = ""
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
+    end,
+})
+
+
+local Button = Tab2:Button({
+    Title = "telefone fnaf",
+    Desc = "fnaf",
+    Callback = function()
+        local args = {
+    [1] = "PickingScooterMusicText",
+    [2] = "4835346587"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
+    end,
+})
+
+local Button = Tab2:Button({
+    Title = "HELOU HAY AHAHAHA",
+    Desc = "fnaf",
+    Callback = function()
+        local args = {
+    [1] = "PickingScooterMusicText",
+    [2] = "5608077885"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
+    end,
+})
+
+local Button = Tab2:Button({
+    Title = "grito ohor",
+    Desc = "fnaf",
+    Callback = function()
+        local args = {
+    [1] = "PickingScooterMusicText",
+    [2] = "268116333"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
     end,
 })
 
