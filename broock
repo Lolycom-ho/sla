@@ -512,10 +512,49 @@ game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1NoMoto1rV
 --scripts tab3 abaixo acima somente scripts tab2
 
 local Button = Tab3:Button({
-    Title = "buraco negro",
+    Title = "universal",
     Desc = "puxa todas a coisas para o plaier selecionado",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/BringFlingPlayers"))("More Scripts: t.me/arceusxscripts")
     end,
 })
 
+local Button = Tab3:Button({
+    Title = "sistem broochk",
+    Desc = "universal",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/script"))()
+    end,
+})
+
+local Button = Tab3:Button({
+    Title = "roships",
+    Desc = "universal",
+    Callback = function()
+    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-rochips-universal-18294"))()
+    end,
+})
+
+local Button = Tab3:Button({
+    Title = "sander x",
+    Desc = "somente para brookhaven",
+    Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/kigredns/SanderXV4.2.2/refs/heads/main/New.lua'))() 
+    end,
+})
+
+local Button = Tab3:Button({
+    Title = "reverso",
+    Desc = "universal",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/L"))()
+    end,
+})
+
+local Button = Tab3:Button({
+    Title = "RD4",
+    Desc = "somente para brookhaven",
+    Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/M1ZZ001/BrookhavenR4D/main/Brookhaven%20R4D%20Script'))()
+    end,
+})
