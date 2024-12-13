@@ -1,0 +1,443 @@
+local WindUI = loadstring(game:HttpGet("https://tree-hub.vercel.app/api/UI/WindUI"))()
+
+local Version = "1.4.0"
+local WindUI = loadstring(game:HttpGet("https://tree-hub.vercel.app/api/UI/WindUI/" .. Version))()
+
+
+local Window = WindUI:CreateWindow({
+    Title = "Lolyta hub", -- UI Title
+    Icon = "door-open", -- Url or rbxassetid or lucide
+    Author = "Lolycon666", -- Author & Creator
+    Folder = "Lolyta hub v.1.0", -- Folder name for saving data (And key)
+    Size = UDim2.fromOffset(580, 460), -- UI Size
+    KeySystem = { -- Creates key system
+        Key = "1234", -- key
+        Note = "The Key is 1234", -- Note
+        URL = "https://github.com/Footagesus/WindUI", -- URL To get key (example: Discord)
+        SaveKey = true, -- Saves the key in the folder specified above
+    }, 
+    Transparent = true,-- UI Transparency
+    Theme = "Dark", -- UI Theme
+    SideBarWidth = 200, -- UI Sidebar Width (number)
+    HasOutline = false, -- Adds Oultines to the window
+})
+
+Window:EditOpenButton({
+    Title = "Lolyta",
+    Icon = "car",  -- New icon
+    CornerRadius = UDim.new(0,10),
+    StrokeThickness = 3,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"), 
+        Color3.fromHex("F89B29")
+    )
+})
+
+
+local Tab1 = Window:Tab({
+    Title = "Main",
+    Icon = "house", -- lucide or rbxassetid
+})
+
+local Tab2 = Window:Tab({
+    Title = "troll musica",
+    Icon = "music", -- lucide or rbxassetid
+})
+
+local Button = Tab1:Button({
+    Title = "Get couch",
+    Desc = "conch",
+    Callback = function()
+        local args = {
+    [1] = "PickingTools",
+    [2] = "Couch"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Too1l"):InvokeServer(unpack(args))
+            
+    end,
+})
+
+local Button = Tab1:Button({
+    Title = "TP ALL",
+    Desc = "Teleports to all players",
+    Callback = function()
+        local startingPosition = game.Players.LocalPlayer.Character:GetPrimaryPartCFrame()
+        local players = game.Players:GetPlayers()
+        for i, player in ipairs(players) do
+            if player ~= game.Players.LocalPlayer then
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(player.Character:GetPrimaryPartCFrame())
+                wait(1)
+            end
+        end
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(startingPosition)
+    end,
+})
+
+local Toggle = Tab1:Toggle({
+    Title = "ESP",
+    Desc = "Shows player names and account ages",
+    Value = false,
+    Callback = function(state)
+        local Players = game:GetService("Players")
+        local RunService = game:GetService("RunService")
+        local LocalPlayer = Players.LocalPlayer
+
+        -- Função para calcular a idade da conta em dias
+        local function getAccountAge(player)
+            return player.AccountAge -- Retorna o número de dias desde a criação da conta
+        end
+
+        -- Função para criar ESP para cada jogador
+        local function createESP(player)
+            if player == LocalPlayer then return end -- Ignorar o próprio jogador
+            local character = player.Character or player.CharacterAdded:Wait()
+            local head = character:WaitForChild("Head")
+            
+            -- Criar BillboardGui para mostrar informações
+            local billboard = Instance.new("BillboardGui", head)
+            billboard.Adornee = head
+            billboard.Size = UDim2.new(0, 200, 0, 50)
+            billboard.StudsOffset = Vector3.new(0, 3, 0)
+            billboard.AlwaysOnTop = true
+
+            -- Criar Label para exibir o texto
+            local textLabel = Instance.new("TextLabel", billboard)
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.BackgroundTransparency = 1
+            textLabel.TextColor3 = Color3.new(1, 1, 1)
+            textLabel.TextStrokeTransparency = 0.5
+            textLabel.Font = Enum.Font.SourceSansBold
+            textLabel.TextSize = 14
+
+            -- Atualizar texto com o nome do jogador e a idade da conta (em dias)
+            local accountAge = getAccountAge(player)
+            textLabel.Text = player.Name .. " | " .. accountAge .. " dias"
+        end
+
+        -- Aplicar ESP a todos os jogadores atuais
+        if state then
+            for _, player in pairs(Players:GetPlayers()) do
+                createESP(player)
+            end
+
+            -- Adicionar ESP para novos jogadores que entrarem
+            Players.PlayerAdded:Connect(function(player)
+                player.CharacterAdded:Connect(function()
+                    createESP(player)
+                end)
+            end)
+        else
+            -- Remover ESP de todos os jogadores
+            for _, player in pairs(Players:GetPlayers()) do
+                if player.Character and player.Character:FindFirstChild("Head") then
+                    local billboard = player.Character.Head:FindFirstChild("BillboardGui")
+                    if billboard then
+                        billboard:Destroy()
+                    end
+                end
+            end
+
+            -- Desconectar os eventos de PlayerAdded e CharacterAdded
+            Players.PlayerAdded:Disconnect()
+            for _, player in pairs(Players:GetPlayers()) do
+                player.CharacterAdded:Disconnect()
+            end
+        end
+    end,
+})
+
+
+local Dropdown = Tab1:Dropdown({
+    Title = "Permissions",
+    Desc = "Permission options",
+    Value = "Option 1",
+    Multi = false,
+    AllowNone = true,
+    Values = {
+        "Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7", "Option 8", "Option 9", "Option 10", "Option 11", "Option 12", "Option 13", "Option 14", "Option 15", "Option 16", "Option 17", "Option 18", "Option 19", "Option 20", "Option 21", "Option 22", "Option 23", "Option 24", "Option 25", "Option 26", "Option 27", "Option 28", "Option 29", "Option 30", "Option 31", "Option 32", "Option 33", "Option 34", "Option 35"
+    },
+    Callback = function(Tab)
+        if Tab == "Option 1" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 1
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 2" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 2
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 3" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 3
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 4" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 4
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 5" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 5
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 6" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 6
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 7" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 7
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 8" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 8
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 9" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 9
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 10" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 10
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 11" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 11
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 12" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 12
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 13" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 13
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 14" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 14
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 15" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 15
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 16" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 16
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 17" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 17
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 18" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 18
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 19" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 19
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 20" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 20
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 21" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 21
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 22" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 22
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 23" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 23
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 24" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 24
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 25" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 25
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 26" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 26
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 27" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 27
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 28" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 28
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 29" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 29
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 30" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 30
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 31" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 31
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 32" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 32
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 33" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 33
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 34" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 34
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        elseif Tab == "Option 35" then
+            local args = {
+                [1] = "GivePermissionLoopToServer",
+                [2] = game:GetService("Players"):WaitForChild("rtrt967"),
+                [3] = 35
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(args))
+        end
+    end
+})
