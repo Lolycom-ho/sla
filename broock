@@ -441,3 +441,11 @@ local Dropdown = Tab1:Dropdown({
         end
     end
 })
+local Button = Tab2:Button({
+    Title = "Button",
+    Desc = "Button Desc",
+    Callback = function()
+        print("Clicked!")
+    end,
+})
+
